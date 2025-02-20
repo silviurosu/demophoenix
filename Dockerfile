@@ -14,7 +14,6 @@
 ARG ELIXIR_VERSION=1.18.2
 ARG OTP_VERSION=27.2.1
 ARG DEBIAN_VERSION=bullseye-20250203-slim
-ARG SECRET_KEY_BASE
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
@@ -84,6 +83,7 @@ RUN chown nobody /app
 
 # set runner ENV
 ENV MIX_ENV="prod"
+ARG SECRET_KEY_BASE
 
 # Only copy the final release from the build stage
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/demophoenix ./
